@@ -53,7 +53,7 @@ export default function VideoView({
   };
 
   useEffect(() => {
-    toast.loading("Loading Model", { duration: 3000 });
+    toast.loading("Loading Model", { id: "loading-model" });
     const setup = async () => {
       try {
         const filesetResolver = await FilesetResolver.forVisionTasks(
@@ -74,8 +74,10 @@ export default function VideoView({
           video.srcObject = stream;
           video.addEventListener("loadeddata", predict);
           video.style.transform = "scaleX(-1)";
+          toast.dismiss("loading-model");
         }
       } catch (e) {
+        toast.dismiss("loading-model");
         toast.error("Error Loading Camera. Please refresh the page.");
       }
     };
@@ -266,7 +268,7 @@ export default function VideoView({
             /> */}
             {/* <pointLight position={[0, 20, 10]} intensity={0.5} castShadow /> */}
             <Suspense fallback={<Loading progress={progress} />}>
-              {blendshapes && rotation && (
+              {
                 <Avatar
                   url={url}
                   blendshapes={blendshapes}
@@ -274,7 +276,7 @@ export default function VideoView({
                   position={position}
                   // headMesh={headMesh}
                 />
-              )}
+              }
             </Suspense>
           </Canvas>
         </Suspense>

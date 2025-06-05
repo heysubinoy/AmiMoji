@@ -6,8 +6,8 @@ import { useEffect, useRef } from "react";
 
 export interface AvatarProps {
   url: string;
-  blendshapes: Category[] | undefined; // Assuming blendshapes is an array of objects
-  rotation: Euler | undefined;
+  blendshapes: Category[] | undefined | null; // Assuming blendshapes is an array of objects
+  rotation: Euler | undefined | null;
   position: number[];
   // headMesh: any[] | undefined;
 }
@@ -36,7 +36,7 @@ export function Avatar({ url, blendshapes, rotation, position }: AvatarProps) {
           }
         });
       });
-      if (rotation !== undefined) {
+      if (rotation !== undefined && rotation !== null) {
         nodes.Head.rotation.set(rotation.x, rotation.y, rotation.z);
         nodes.Neck.rotation.set(
           rotation.x / 5 + 0.3,
@@ -52,5 +52,5 @@ export function Avatar({ url, blendshapes, rotation, position }: AvatarProps) {
     }
   });
 
-  return <primitive object={scene} position={position} scale={[-1, 1, 1]}/>;
+  return <primitive object={scene} position={position} scale={[-1, 1, 1]} />;
 }
