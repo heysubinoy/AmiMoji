@@ -2,7 +2,7 @@ import { useGLTF } from "@react-three/drei";
 import { Category } from "@mediapipe/tasks-vision";
 import { Euler } from "three";
 import { useFrame, useGraph } from "@react-three/fiber";
-import { useEffect, useRef } from "react";
+import { use, useEffect, useRef } from "react";
 
 export interface AvatarProps {
   url: string;
@@ -13,10 +13,14 @@ export interface AvatarProps {
 }
 
 export function Avatar({ url, blendshapes, rotation, position }: AvatarProps) {
+  // useGLTF.clear(url);
   const { scene } = useGLTF(url);
   const { nodes } = useGraph(scene);
   const headMeshRef = useRef<any[]>([]);
 
+  useEffect(() => {
+    useGLTF.clear(url);
+  }, [url]);
   useEffect(() => {
     if (nodes.Wolf3D_Head) headMeshRef.current.push(nodes.Wolf3D_Head);
     if (nodes.Wolf3D_Teeth) headMeshRef.current.push(nodes.Wolf3D_Teeth);

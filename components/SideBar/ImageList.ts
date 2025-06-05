@@ -4,11 +4,11 @@ export const ImageList = [
     url: "/main.glb",
   },
   {
-    name: "/char1.png",
-    url: "/char1.glb",
-  },
-  {
     name: "/char2.png",
     url: "/char2.glb",
+  },
+  {
+    name: "/char1.png",
+    url: "/char1.glb",
   },
 ];
